@@ -1,5 +1,5 @@
 # This project created by urhoba
-# www.urhoba.nets
+# www.urhoba.net
 
 from termcolor import colored
 
