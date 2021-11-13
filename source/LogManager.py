@@ -5,6 +5,7 @@ from datetime import date, datetime
 import locale
 import os
 import ColoredPrint
+from MailManager import MailManager
 
 #region Locale Settings
 locale.setlocale(locale.LC_ALL, '')
@@ -14,6 +15,7 @@ class LogManager:
 #region Init    
     def __init__(self, logFileName) -> None:
         self._logFileName = logFileName
+        self.mailManager = MailManager()
 #endregion
 
 #region Add Log
@@ -25,6 +27,7 @@ class LogManager:
             with logFile as f:
                 f.write(f"\nDate : {_nowTime}\nError: {errorText}\n")
             ColoredPrint.RedPrint(f'Date : {_nowTime}\nError: {errorText}\n')
+            self.mailManager.SendMail("Bir hata tespit edildi! (UrhobA - Telegram Bot)", f'{errorText}', 'ahmetbohur@icloud.com')
         except:
             ColoredPrint.RedPrint("Log oluşturulurken bir sorun meydana geldi!")
         finally:

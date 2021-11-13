@@ -2,7 +2,7 @@
 # www.urhoba.net
 
 from Settings import MailSettings
-from LogManager import LogManager
+#from LogManager import LogManager
 
 import smtplib
 from email.mime.text import MIMEText
@@ -17,7 +17,7 @@ class MailManager:
         self.fromPassword = MailSettings.fromPassword
         self.smtpHost = MailSettings.smtpHost
         self.smtpPort = MailSettings.smtpPort
-        self.logManager = LogManager("MailManager")
+        #self.logManager = LogManager("MailManager")
 #endregion
 
 #region Send Mail
@@ -34,8 +34,9 @@ class MailManager:
             with smtplib.SMTP_SSL(self.smtpHost, self.smtpPort) as server:
                 server.login(self.fromMail, self.fromPassword)
                 server.sendmail(self.fromMail, toMail, message.as_string())
+            ColoredPrint.GreenPrint("Mail gönderildi!")
         except Exception as e:
-            self.logManager.AddLog(f"Mail gönderilemedi!\nHata Kodu: {e}\nMail başlığı : {subject} \nMail içeriği : {content} \nAlıcı : {toMail}")
+            # self.logManager.AddLog(f"Mail gönderilemedi!\nHata Kodu: {e}\nMail başlığı : {subject} \nMail içeriği : {content} \nAlıcı : {toMail}")
             ColoredPrint.RedPrint(f"Mail gönderilemedi!\nHata Kodu: {e}\nMail başlığı : {subject} \nMail içeriği : {content} \nAlıcı : {toMail}")
 
 #endregion
